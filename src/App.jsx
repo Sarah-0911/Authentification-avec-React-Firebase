@@ -1,10 +1,15 @@
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import Home from "./pages/Home"
+import Navbar from "./components/Navbar"
 
 function App() {
 
   return (
-    <div>
-      <h1 className='text-red-700'>kikou</h1>
+    <div className='bg-slate-900 min-h-screen'>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
     </div>
   )
 }
