@@ -1,17 +1,23 @@
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
+
+
 export default function SignUpModal() {
 
-  const closeModal = () => {
-
-  }
+  const { modalState, toggleModals } = useContext(UserContext);
 
   return (
     <>
-      <div className="fixed inset-0 flex justify-center items-center bg-slate-800/75">
-        <div className="bg-slate-100 min-w-[400px] text-slate-800 rounded relative p-4">
+    {modalState.signUpModal && (
+      <div className="fixed inset-0 flex justify-center items-center bg-slate-800/75"
+      onClick={() => toggleModals("close")}>
+        <div
+        className="bg-slate-100 min-w-[400px] text-slate-800 rounded relative p-4"
+        onClick={(e) => e.stopPropagation()}>
           <p className="font-semibold mb-4">Sign Up</p>
           <button
           className="absolute right-1 top-2 w-7 h-7 text-sm"
-          onClick={closeModal}>
+          onClick={() => toggleModals("close")}>
             X
           </button>
           <form>
@@ -47,6 +53,7 @@ export default function SignUpModal() {
           </form>
         </div>
       </div>
+      )}
     </>
   )
 }
