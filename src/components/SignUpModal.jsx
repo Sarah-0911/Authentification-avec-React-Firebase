@@ -9,10 +9,15 @@ export default function SignUpModal() {
   const formRef = useRef();
   const inputs = useRef([]);
 
-  const addInputs = (el) => {
-    if (el && !inputs.current.includes(el)) {
-      inputs.current.push(el);
+  const addInputs = (input) => {
+    if (input && !inputs.current.includes(input)) {
+      inputs.current.push(input);
     }
+  }
+
+  const closeModal = () => {
+    setValidation("");
+    toggleModals("close");
   }
 
   const handleForm = async(e) => {
@@ -36,29 +41,28 @@ export default function SignUpModal() {
       console.log(cred);
 
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        setValidation("This email is already registered.");
-      } else {
-        setValidation("An error has occurred, please try again.");
+      console.dir(error);
+      if (error.code === "auth/invalid-email") {
+        setValidation("Invalid email format.");
       }
-      console.log(error);
-      
+      if (error.code === "auth/email-already-in-use") {
+        setValidation("Email already registered.");
+      }
     }
-
   }
 
   return (
     <>
     {modalState.signUpModal && (
       <div className="fixed inset-0 flex justify-center items-center bg-slate-800/75"
-      onClick={() => toggleModals("close")}>
+      onClick={closeModal}>
         <div
         className="bg-slate-100 min-w-[400px] text-slate-800 rounded relative p-4"
         onClick={(e) => e.stopPropagation()}>
           <p className="font-semibold mb-4">Sign Up</p>
           <button
           className="absolute right-1 top-2 w-7 h-7 text-sm"
-          onClick={() => toggleModals("close")}>
+          onClick={closeModal}>
             X
           </button>
           <form
