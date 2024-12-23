@@ -7,9 +7,9 @@ export default function Private() {
   const { currentUser } = useContext(UserContext);
   console.log("PRIVATE", currentUser);
 
-  // if (!currentUser) {
-  //   return <Navigate to="/" />
-  // }
+  if (!currentUser) {
+    return <Navigate to="/" />
+  }
 
   return (
     <div className="w-[600px] h-[400px] mx-auto">
