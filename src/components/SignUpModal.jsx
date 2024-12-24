@@ -1,7 +1,10 @@
 import { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpModal() {
+
+  const navigate = useNavigate();
 
   const { modalState, toggleModals, signUp } = useContext(UserContext);
   const [validation, setValidation] = useState("");
@@ -36,9 +39,10 @@ export default function SignUpModal() {
 
     try {
       const cred = await signUp(inputs.current[0].value, inputs.current[1].value);
-      formRef.current.reset();
-      setValidation("");
       console.log(cred);
+      formRef.current.reset();
+      closeModal();
+      navigate("private/private-home");
 
     } catch (error) {
       console.dir(error);

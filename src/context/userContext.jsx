@@ -14,15 +14,17 @@ export default function UserContextProvider(props) {
   const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
+    // Installe un écouteur sur l'état d'authentification de l'utilisateur
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user); // Met à jour le state local currentUser :
+                            // - Avec l'objet utilisateur fourni par Firebase si l'utilisateur se connecte.
+                            // - Avec null si l'utilisateur se déconnecte.
+      setLoadingData(false); // Indique que les données d'authentification ont été chargées.
+    });
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setCurrentUser(currentUser);
-      setLoadingData(false);
-    })
+    return unsubscribe; // Arrête l'écoute au démontage du composant pour éviter les comportements indésirables.
+  }, []);
 
-    return unsubscribe;   // clean up unsubscribe une fois qu'il est monté.
-
-  }, [])
 
   //modal
   const [modalState, setModalState] = useState({
@@ -53,7 +55,7 @@ export default function UserContextProvider(props) {
 
   return (
     <UserContext.Provider value={{ modalState, toggleModals, signUp, currentUser, loadingData }} >
-      {props.children}
+      {!loadingData && props.children} 
     </UserContext.Provider>
   )
 }
