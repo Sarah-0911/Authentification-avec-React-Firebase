@@ -3,15 +3,15 @@ import Home from "./pages/Home"
 import Navbar from "./components/Navbar"
 import Private from './pages/Private/Private'
 import SignUpModal from './components/SignUpModal'
+import SignInModal from './components/SignInModal'
 import PrivateHome from './pages/Private/PrivateHome/PrivateHome'
-// import SignInModal from './components/SignInModal'
 
 function App() {
 
   return (
     <div className='bg-slate-900 min-h-screen'>
       <SignUpModal />
-      {/* <SignInModal /> */}
+      <SignInModal />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
