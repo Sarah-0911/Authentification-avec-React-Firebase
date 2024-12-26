@@ -1,10 +1,24 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 
   const { toggleModals } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const logOut = async() => {
+    try {
+      const auth = getAuth();
+      await signOut(auth)
+      navigate("/")
+    } catch {
+      alert("For some reasons we can't deconnect, please check your internet connexion and retry.")
+    }
+  }
 
   return (
     <nav className="flex justify-between items-center bg-slate-50 py-2 px-8">
@@ -22,7 +36,9 @@ export default function Navbar() {
         className="text-slate-50 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
           Sign In
         </button>
-        <button className="text-slate-50 bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-sm">
+        <button
+        onClick={logOut}
+        className="text-slate-50 bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-sm">
           Log Out
         </button>
       </div>

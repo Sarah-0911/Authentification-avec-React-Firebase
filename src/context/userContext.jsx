@@ -22,7 +22,7 @@ export default function UserContextProvider(props) {
       setLoadingData(false); // Indique que les données d'authentification ont été chargées.
     });
 
-    return unsubscribe; // Arrête l'écoute au démontage du composant pour éviter les comportements indésirables.
+    return unsubscribe; // Arrête l'écoute au démontage du composant pour éviter les comportements indésirables (d'où le nom unsubscribe).
   }, []);
 
 
@@ -55,7 +55,7 @@ export default function UserContextProvider(props) {
 
   return (
     <UserContext.Provider value={{ modalState, toggleModals, signUp, currentUser, loadingData }} >
-      {!loadingData && props.children} 
+      {!loadingData && props.children}
     </UserContext.Provider>
   )
 }
