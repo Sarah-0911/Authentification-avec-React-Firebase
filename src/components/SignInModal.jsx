@@ -12,9 +12,9 @@ export default function SignInModal() {
   const formRef = useRef();
   const inputs = useRef([]);
 
-  const addInputs = (input) => {
-    if (input && !inputs.current.includes(input)) {
-      inputs.current.push(input);
+  const addInputs = (element) => {
+    if (element && !inputs.current.includes(element)) {
+      inputs.current.push(element);
     }
   }
 

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
@@ -12,7 +13,6 @@ export default function Navbar() {
 
   const logOut = async() => {
     try {
-      const auth = getAuth();
       await signOut(auth)
       navigate("/")
     } catch {
